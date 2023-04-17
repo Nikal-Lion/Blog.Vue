@@ -1,13 +1,24 @@
+const path = require('path');
+
 module.exports = {
   // 基本路径
-  baseUrl: "/",
+  publicPath: "/",
   // 输出文件目录
   outputDir: "dist",
   // eslint-loader 是否在保存的时候检查
   lintOnSave: true,
   // webpack配置
   // see https://github.com/vuejs/vue-cli/blob/dev/docs/webpack.md
-  chainWebpack: () => {},
+  chainWebpack: config => {
+    config.module.rule('md')
+      .test(/\.md/)
+      .use('vue-loader')
+      .loader('vue-loader')
+      .end()
+      .use('md-loader')
+      .loader(path.resolve(__dirname, 'src/loaders/md-loader.js'))
+      .end();
+    },
   configureWebpack: () => {},
   // 生产环境是否生成 sourceMap 文件
   productionSourceMap: true,
@@ -31,7 +42,7 @@ module.exports = {
   // webpack-dev-server 相关配置
   devServer: {
     open: true, //配置自动启动浏览器
-    host: "localhost",
+    host: "0.0.0.0",
     port: 6688, // 当前vue项目的端口号
     https: false,
     hotOnly: false, // https:{type:Boolean}
