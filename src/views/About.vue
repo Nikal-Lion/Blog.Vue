@@ -197,12 +197,10 @@ export default {
         city: "厦门",
       },
       opts: [
-        "在项目开发工程中尽量保证每个任务拆分详细得当，保证任务的进度可追踪",
+        "工作认真细致，在开发中力求开发任务拆分详细得当",
         "熟悉多种ORM框架的使用，包括 EF、Dapper、NHibernate 等",
-        "熟悉多种数据库的使用，包括 SQL Server、Oracle、MySQL、SQLite 等数据库的使用",
-        "能够熟练的使用TFS、SVN、git 等版本控制系统的使用",
-        "能够熟练的使用docker，以及docker-compose",
-        "能够编写脚本(shell、python) 辅助项目的CI/CD",
+        "做事认真仔细，对于复杂的事情能够保持冷静并认真分析",
+        "平时热爱学习，喜欢钻研新鲜知识，勇于尝新并应用在实践中。",
       ],
       companies: [
         {
