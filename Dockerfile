@@ -1,5 +1,5 @@
 FROM nginx
-MAINTAINER vueblog
+MAINTAINER wolfife
 ADD dist /usr/share/nginx/html
 ADD vueblog.nginx.conf /etc/nginx/nginx.conf
 RUN chown nginx:nginx -R /usr/share/nginx/html
