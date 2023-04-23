@@ -167,14 +167,14 @@
     </div>
     <!-- 教育经历 end -->
 
-    <!-- <div class="float-div">
+    <div class="float-div" :hidden="!showQrCode">
       <drag-ball
         :distanceBottom="10"
         :distanceRight="60"
         :isScrollHidden="false"
         :zIndex="999"
       ></drag-ball>
-    </div> -->
+    </div>
   </div>
 </template>
 <script lang="ts">
@@ -194,6 +194,7 @@ export default {
   },
   data() {
     return {
+      showQrCode: true,
       title: {
         avatar: "../assets/avatar.png",
         username: "阙福琪",
@@ -231,18 +232,29 @@ export default {
     };
   },
   mounted() {
-    this.get();
+    window.addEventListener("beforeprint", this.beforePrint);
+    window.addEventListener("afterprint", this.afterPrint);
   },
   methods: {
-    get() {
-      // for (let [key, value] in Object.entries(this.title)) {
-      //   console.log("key :>> ", key);
-      //   console.log("value :>> ", value);
-      // }
+    beforePrint(e: Object) {
+      console.group("print before");
+      console.log("print e :>> ", e || "empty");
+      this.showQrCode = false;
+      console.groupEnd();
+    },
+    afterPrint(e: Object) {
+      console.group("print before");
+      console.log("print e :>> ", e || "empty");
+      this.showQrCode = true;
+      console.groupEnd();
     },
     mailTo() {
       location.href = `mailto:${this.title.email}`;
     },
+  },
+  beforeDestroy() {
+    window.removeEventListener("beforeprint", this.beforePrint);
+    window.removeEventListener("afterprint", this.afterPrint);
   },
 };
 </script>
