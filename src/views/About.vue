@@ -56,23 +56,24 @@
         <img src="../assets/prefix.png" style="float: left;" />
         <h2 class="title-content clearfix">个人优势</h2>
       </div>
-      <el-card shadow="hover">
-        <div class="content">
-          <ul class="seq-content">
-            <li v-for="(val, index) in opts" :key="val">
-              <span>{{ index + 1 + ". " + val }}</span>
-            </li>
-          </ul>
+      <el-card :body-style="cardBodyStyle" shadow="hover">
+        <div class="content content-opts">
+          <p v-html="opts" />
         </div>
       </el-card>
     </div>
     <!-- 工作经验 begin -->
-    <div id="d_work" class="card-info">
+    <div id="d_work" class="card-info page-break-after">
       <div class="title">
         <img src="../assets/prefix.png" style="float: left;" />
         <h2 class="title-content clearfix">工作经历</h2>
       </div>
-      <el-card shadow="hover" v-for="exp in companies" :key="exp.name">
+      <el-card
+        :body-style="cardBodyStyle"
+        shadow="hover"
+        v-for="exp in companies"
+        :key="exp.name"
+      >
         <div class="content">
           <div slot="header">
             <el-row>
@@ -100,17 +101,17 @@
     <!-- 工作经验 end -->
 
     <!-- 项目经验 begin -->
-    <div id="d_projects" class="card-info">
+    <div id="d_projects" class="card-info page-break-after">
       <div class="title">
         <img src="../assets/prefix.png" style="float: left;" />
         <h2 class="title-content clearfix">项目经验</h2>
       </div>
-      <el-card shadow="hover">
+      <el-card :body-style="{ padding: '10px 20px' }" shadow="hover">
         <div>
           <my-projects />
         </div>
       </el-card>
-      <!-- <el-card shadow="hover">
+      <!-- <el-card :body-style="{padding:'10px 20px'}" shadow="hover">
         <div class="content">
           <el-collapse :value="projects">
             <el-collapse-item
@@ -158,13 +159,22 @@
         <img src="../assets/prefix.png" style="float: left;" />
         <h2 class="title-content clearfix">教育经历</h2>
       </div>
-      <el-card shadow="hover">
+      <el-card :body-style="cardBodyStyle" shadow="hover">
         <div class="content">
           <my-education />
         </div>
       </el-card>
     </div>
     <!-- 教育经历 end -->
+
+    <!-- <div class="float-div">
+      <drag-ball
+        :distanceBottom="10"
+        :distanceRight="60"
+        :isScrollHidden="false"
+        :zIndex="999"
+      ></drag-ball>
+    </div> -->
   </div>
 </template>
 <script lang="ts">
@@ -173,12 +183,14 @@ import "github-markdown-css";
 import "highlight.js";
 import MyProjects from "../assets/docs/projects.md";
 import MyEducation from "../assets/docs/education.md";
+import DragBall from "../components/dragBall.vue";
 
 export default {
   name: "AboutMe",
   components: {
     MyProjects,
     MyEducation,
+    DragBall,
   },
   data() {
     return {
@@ -196,12 +208,8 @@ export default {
         wantedSalary: "14k",
         city: "厦门",
       },
-      opts: [
-        "工作认真细致，在开发中力求开发任务拆分详细得当",
-        "熟悉多种ORM框架的使用，包括 EF、Dapper、NHibernate 等",
-        "做事认真仔细，对于复杂的事情能够保持冷静并认真分析",
-        "平时热爱学习，喜欢钻研新鲜知识，勇于尝新并应用在实践中。",
-      ],
+      opts:
+        "工作认真细致，在开发中力求开发任务拆分详细得当; <br> 做事认真仔细，对于复杂的事情能够保持冷静并认真分析;<br> 平时热爱学习，喜欢钻研新鲜知识，勇于尝新并应用在实践中。<br>熟悉多种ORM框架的使用，包括 EF、Dapper、NHibernate 等;",
       companies: [
         {
           name: "厦门链石网络科技有限公司",
@@ -216,7 +224,10 @@ export default {
           summary:
             "以.NET为平台，开发一套基于B/S架构的系统 <br />系统需要实现经济系统、看诊以及提供接口供第三方调用，同时需要调用来自第三方的接口 <br />接口形式有WebService、WebApi或者是数据库中间表，系统要求使用相关设计模式实现系统高效、便捷的使用体验。",
         },
-      ]
+      ],
+      cardBodyStyle: {
+        padding: "10px 20px",
+      },
     };
   },
   mounted() {
@@ -257,6 +268,9 @@ export default {
 .float-right {
   float: right;
 }
+.page-break-after{
+  page-break-after: always;
+}
 
 .title {
   background-color: #f1fafa;
@@ -278,6 +292,10 @@ export default {
 .content {
   min-height: 10vh;
   margin: 10px;
+  &-opts{
+    min-height: 10px !important;
+    height: auto;
+  }
   &-markdown{
     // margin: 0;
     // padding: 20px;
@@ -322,5 +340,25 @@ export default {
     }
     margin: 10px;
   }
+}
+.qrCode{
+  position: absolute;
+  z-index 999;
+  width: 100%;
+  height: 100%;
+
+}
+.float-position{
+  font-size: 12px;
+  position: fixed;
+  z-index: 500!important;
+  right: 0;
+  top: 50%;
+  width: 48px;
+  height: 168px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  user-select: none;
 }
 </style>
